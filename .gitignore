@@ -1,0 +1,7 @@
+docker
+installation_setup.sh
+*.ipynb
+.vscode
+*.pyc
+__pycache__
+.idea
