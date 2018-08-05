@@ -5,3 +5,4 @@ installation_setup.sh
 *.pyc
 __pycache__
 .idea
+db.sqlite3
