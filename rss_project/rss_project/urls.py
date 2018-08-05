@@ -13,9 +13,13 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
+from django.conf.urls import url, include
 from django.contrib import admin
 from django.urls import path
 
+from rss_project.applications.rss_reader.api.urls import urlpatterns
+
 urlpatterns = [
     path('admin/', admin.site.urls),
+    url(r'^rss_reader/', include(urlpatterns))
 ]

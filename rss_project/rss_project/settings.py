@@ -13,6 +13,8 @@ https://docs.djangoproject.com/en/2.1/ref/settings/
 import os
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
+from datetime import timedelta
+
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 
@@ -38,7 +40,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django_extensions',
-    'apps.rss_reader',
+    'rss_project.applications.rss_reader',
+    'rest_framework',
 ]
 
 MIDDLEWARE = [
@@ -120,3 +123,38 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/2.1/howto/static-files/
 
 STATIC_URL = '/static/'
+
+########################################################################################################################
+
+PREFIX_PATH = 'rss_project.applications.rss_reader.tasks.'
+
+CELERYBEAT_SCHEDULE = {
+    'add-every-minute': {
+        'task': PREFIX_PATH+'read_currencies',
+        'schedule': timedelta(seconds=5),
+    }
+}
+
+CELERY_ROUTES = {
+    PREFIX_PATH+'read_currency': {'queue': 'currency'},
+    PREFIX_PATH+'read_currencies': {'queue': 'currency'},
+}
+
+CURRENCY_QUEUE = 'currency'
+
+CELERY_ANNOTATIONS = {
+    PREFIX_PATH+'read_currency': {'max_retries': 1, 'default_retry_delay': 60, 'rate_limit': '1/s'},
+}
+
+CELERY_IMPORTS = (
+    ['rss_project.applications.rss_reader.tasks']
+)
+
+# BROKER_USERNAME = 'guest'
+# BROKER_PASSWORD = 'guest'
+# BROKER_PORT = '5672'
+# BROKER_URL =
+
+CELERY_TIMEZONE = 'UTC'
+CELERY_ENABLE_UTC = True
+CELERY_IGNORE_RESULT =True
