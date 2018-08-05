@@ -150,11 +150,6 @@ CELERY_IMPORTS = (
     ['rss_project.applications.rss_reader.tasks']
 )
 
-# BROKER_USERNAME = 'guest'
-# BROKER_PASSWORD = 'guest'
-# BROKER_PORT = '5672'
-# BROKER_URL =
-
 CELERY_TIMEZONE = 'UTC'
 CELERY_ENABLE_UTC = True
 CELERY_IGNORE_RESULT =True

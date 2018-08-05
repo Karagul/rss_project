@@ -2,7 +2,6 @@ from time import mktime
 
 import feedparser
 from celery import shared_task
-from celery.task import task
 from django.utils import timezone
 
 from .models import Currency
@@ -43,7 +42,7 @@ RSS_COROUNCIES_LIST = [
     ]
 
 
-@shared_task  #(max_retries=1, default_retry_delay=60, queue='currency', rate_limit='1/s')
+@shared_task
 def read_currencies():
     for link in RSS_COROUNCIES_LIST:
         read_currency.s(link=link).delay()
@@ -59,4 +58,3 @@ def read_currency(link):
         date = feed.updated_parsed
         date = timezone.datetime.fromtimestamp(mktime(date))
         Currency.objects.get_or_create(value=how_much_for_euro, name=currency, created=date)
-

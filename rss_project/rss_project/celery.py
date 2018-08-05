@@ -18,22 +18,3 @@ PREFIX_PATH = 'rss_project.applications.rss_reader.tasks.'
 
 # Load task modules from all registered Django app configs.
 app.autodiscover_tasks()
-# app.conf.update(
-#     # task_annotations={
-#     #     PREFIX_PATH+'read_currency': {'rate_limit': '1/s'}
-#     # },
-#     # task_routes={
-#     #     PREFIX_PATH+'read_currency': {'queue': 'currency'},
-#     #     PREFIX_PATH+'read_currencies': {'queue': 'currency'}
-#     # },
-#     beat_schedule={
-#         'add-every-minute': {
-#             'task': PREFIX_PATH+'read_currencies',
-#             'schedule': timedelta(seconds=5),
-#         }  # TODO it is not working
-#     },
-# )
-
-@app.task(bind=True)
-def debug_task(self):
-    print('Request: {0!r}'.format(self.request))
