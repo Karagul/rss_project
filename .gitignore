@@ -6,3 +6,5 @@ installation_setup.sh
 __pycache__
 .idea
 db.sqlite3
+celerybeat-schedule*
+celery.log
