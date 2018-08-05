@@ -45,7 +45,7 @@ You can check that currency is downloaded on api:
 127.0.0.1:8000/rss_reader/api/currency/list
 Points II. III, IV you must run in separate terminals.
 
-2. Further Work
+3. Further Work
 - All project it should be run in container with rabbitmq and celery
 - More api where you can e.g filter by date and currency
 - get rid of unnecessary files
